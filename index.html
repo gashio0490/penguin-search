@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ペンギン水族館検索</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0077b6;
+            margin-top: 20px;
+        }
+
+        h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px; /* 最大幅を設定 */
+            margin: 0 auto; /* コンテンツを中央に配置 */
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px; /* 上部に少し余白を追加 */
+        }
+
+        .checkbox-group {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input {
+            margin-right: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #0077b6;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px; /* ボタンの上に余白を追加 */
+        }
+
+        button:hover {
+            background-color: #005f8a;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .result p {
+            font-size: 1.1em;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            button {
+                font-size: 1.1em;
+            }
+
+            .checkbox-group {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>ペンギン水族館検索（試験版）</h1>
+    <div class="container">
+        <h3>見たいペンギンの種類を選択</h3>
+        <div class="checkbox-group">
+            <input type="checkbox" class="penguin" value="アデリーペンギン"> アデリーペンギン<br>
+            <input type="checkbox" class="penguin" value="ジェンツーペンギン"> ジェンツーペンギン<br>
+            <input type="checkbox" class="penguin" value="オウサマペンギン"> オウサマペンギン<br>
+            <input type="checkbox" class="penguin" value="ミナミイワトビペンギン"> ミナミイワトビペンギン<br>
+            <input type="checkbox" class="penguin" value="ケープペンギン"> ケープペンギン<br>
+            <input type="checkbox" class="penguin" value="コウテイペンギン"> コウテイペンギン<br>
+            <input type="checkbox" class="penguin" value="ヒゲペンギン"> ヒゲペンギン<br>
+        </div>
+        
+        <h3>地域を選択</h3>
+        <div class="checkbox-group">
+            <input type="checkbox" class="region" value="関東"> 関東<br>
+            <input type="checkbox" class="region" value="関西"> 関西<br>
+            <input type="checkbox" class="region" value="中部"> 中部<br>
+        </div>
+        
+        <button onclick="searchAquariums()">検索</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const data = [
+            { penguin: "アデリーペンギン", aquarium: "海遊館", region: "関西" },
+            { penguin: "ジェンツーペンギン", aquarium: "海遊館", region: "関西" },
+            { penguin: "オウサマペンギン", aquarium: "海遊館", region: "関西" },
+            { penguin: "ミナミイワトビペンギン", aquarium: "海遊館", region: "関西" },
+            { penguin: "ケープペンギン", aquarium: "サンシャイン水族館", region: "関東" },
+            { penguin: "コウテイペンギン", aquarium: "名古屋港水族館", region: "中部" },
+            { penguin: "アデリーペンギン", aquarium: "名古屋港水族館", region: "中部" },
+            { penguin: "ジェンツーペンギン", aquarium: "名古屋港水族館", region: "中部" },
+            { penguin: "ヒゲペンギン", aquarium: "名古屋港水族館", region: "中部" }
+        ];
+        
+        function searchAquariums() {
+            // 選択されたペンギンと地域を取得
+            const selectedPenguins = Array.from(document.querySelectorAll('.penguin:checked')).map(cb => cb.value);
+            const selectedRegions = Array.from(document.querySelectorAll('.region:checked')).map(cb => cb.value);
+            
+            // 結果をフィルタリング
+            const results = data.filter(item =>
+                (selectedPenguins.length === 0 || selectedPenguins.includes(item.penguin)) &&
+                (selectedRegions.length === 0 || selectedRegions.includes(item.region))
+            );
+            
+            // 結果をグループ化
+            const groupedResults = results.reduce((acc, curr) => {
+                const key = curr.aquarium;
+                if (!acc[key]) {
+                    acc[key] = { aquarium: key, penguins: [] };
+                }
+                if (!acc[key].penguins.includes(curr.penguin)) {
+                    acc[key].penguins.push(curr.penguin);
+                }
+                return acc;
+            }, {});
+            
+            // 結果を表示
+            const resultDiv = document.getElementById('result');
+            if (Object.keys(groupedResults).length === 0) {
+                resultDiv.innerHTML = '<p>該当する水族館はありません。</p>';
+            } else {
+                resultDiv.innerHTML = Object.values(groupedResults).map(r =>
+                    `<p>${r.aquarium}（${r.penguins.join('、')}）</p>`
+                ).join('');
+            }
+        }
+    </script>
+</body>
+</html>
