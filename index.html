@@ -11,27 +11,28 @@
     <div class="container">
         <h3>見たいペンギンの種類を選択</h3>
         <div class="checkbox-group">
-            <input type="checkbox" class="penguin" value="アデリーペンギン"> アデリーペンギン<br>
-            <input type="checkbox" class="penguin" value="ジェンツーペンギン"> ジェンツーペンギン<br>
-            <input type="checkbox" class="penguin" value="オウサマペンギン"> オウサマペンギン<br>
-            <input type="checkbox" class="penguin" value="ミナミイワトビペンギン"> ミナミイワトビペンギン<br>
-            <input type="checkbox" class="penguin" value="ケープペンギン"> ケープペンギン<br>
-            <input type="checkbox" class="penguin" value="コウテイペンギン"> コウテイペンギン<br>
-            <input type="checkbox" class="penguin" value="ヒゲペンギン"> ヒゲペンギン<br>
+            <label><input type="checkbox" class="penguin" value="1"> アデリーペンギン</label><br>
+            <label><input type="checkbox" class="penguin" value="2"> ジェンツーペンギン</label><br>
+            <label><input type="checkbox" class="penguin" value="3"> オウサマペンギン</label><br>
+            <label><input type="checkbox" class="penguin" value="4"> ミナミイワトビペンギン</label><br>
+            <label><input type="checkbox" class="penguin" value="5"> ケープペンギン</label><br>
+            <label><input type="checkbox" class="penguin" value="6"> コウテイペンギン</label><br>
+            <label><input type="checkbox" class="penguin" value="7"> ヒゲペンギン</label><br>
         </div>
-        
+
         <h3>地域を選択</h3>
         <div class="checkbox-group">
-            <input type="checkbox" class="region" value="関東"> 関東<br>
-            <input type="checkbox" class="region" value="関西"> 関西<br>
-            <input type="checkbox" class="region" value="中部"> 中部<br>
+            <label><input type="checkbox" class="region" value="関東"> 関東</label><br>
+            <label><input type="checkbox" class="region" value="関西"> 関西</label><br>
+            <label><input type="checkbox" class="region" value="中部"> 中部</label><br>
         </div>
-        
-        <button onclick="searchAquariums()">検索</button>
-        
+
+        <button id="searchButton">検索</button>
+
         <div class="result" id="result"></div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js" defer></script>
 </body>
 </html>
