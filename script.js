@@ -72,7 +72,6 @@ async function searchAquariums() {
                 acc[key] = {
                     aquarium: aquarium.name,
                     region: aquarium.region,
-                    opening_hours: aquarium.opening_hours,
                     penguins: []
                 };
             }
