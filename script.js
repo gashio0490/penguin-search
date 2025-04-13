@@ -27,7 +27,7 @@ async function searchAquariums() {
     // 水族館データの取得
     const { data: aquariums, error: aquariumsError } = await supabase
         .from('aquarium')
-        .select('aquarium_id, name, region, opening_hours');
+        .select('aquarium_id, name, region');
 
     if (aquariumsError) {
         console.error("水族館情報の取得エラー:", aquariumsError);
