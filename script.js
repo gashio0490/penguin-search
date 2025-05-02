@@ -19,7 +19,7 @@ async function searchAquariums() {
 
     // 選択されたペンギンと地域を取得
     const selectedPenguins = Array.from(document.querySelectorAll('.penguin:checked')).map(cb => parseInt(cb.value));
-    const selectedRegions = Array.from(document.querySelectorAll('.region:checked')).map(cb => cb.value);
+    const selectedRegions = Array.from(document.querySelectorAll('.region:checked')).map(cb =>parseInt(cb.value));
 
     console.log("選択されたペンギン:", selectedPenguins);
     console.log("選択された地域:", selectedRegions);
@@ -27,7 +27,7 @@ async function searchAquariums() {
     // 水族館データの取得
     const { data: aquariums, error: aquariumsError } = await supabase
         .from('aquarium')
-        .select('aquarium_id, name, region');
+        .select('aquarium_id, name, region_id, pref');
 
     if (aquariumsError) {
         console.error("水族館情報の取得エラー:", aquariumsError);
@@ -44,6 +44,16 @@ async function searchAquariums() {
         return;
     }
 
+    // 地域情報の取得
+    const { data: regions, error: regionsError } = await supabase
+        .from('region')
+        .select('region_id, region');
+
+    if (penguinsError) {
+        console.error("地域情報の取得エラー:", regionsError);
+        return;
+    }
+    
     // 水族館とペンギンの関連データ取得
     const { data: aquariumPenguins, error: aquariumPenguinsError } = await supabase
         .from('aquarium_penguin')
@@ -53,7 +63,7 @@ async function searchAquariums() {
         console.error("水族館とペンギンの関連データ取得エラー:", aquariumPenguinsError);
         return;
     }
-
+    
     // フィルタリング処理
     const filteredAquariums = aquariumPenguins.filter(item =>
         selectedPenguins.length === 0 || selectedPenguins.includes(item.penguin_id)
@@ -63,7 +73,10 @@ async function searchAquariums() {
         const aquarium = aquariums.find(a => a.aquarium_id === curr.aquarium_id);
         if (!aquarium) return acc;
 
-        if (selectedRegions.length === 0 || selectedRegions.includes(aquarium.region)) {
+        const region = regions.find(r => r.region_id === aquarium.region_id);
+        if (!region) return acc;
+
+        if (selectedRegions.length === 0 || selectedRegions.includes(aquarium.region_id)) {
             const penguin = penguins.find(p => p.penguin_id === curr.penguin_id);
             if (!penguin) return acc;
 
@@ -71,7 +84,7 @@ async function searchAquariums() {
             if (!acc[key]) {
                 acc[key] = {
                     aquarium: aquarium.name,
-                    region: aquarium.region,
+                    region: aquarium.pref,
                     penguins: []
                 };
             }
