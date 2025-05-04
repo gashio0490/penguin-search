@@ -62,7 +62,7 @@ async function searchAquariums() {
         resultDiv.innerHTML = '<p>該当する水族館はありません。</p>';
     } else {
         resultDiv.innerHTML = Object.values(groupedResults).map(r =>
-            `<p><strong>${r.aquarium}</strong>（${r.region})<br>
+            `<p><strong>${r.aquarium}</strong>（${r.pref})<br>
             　${r.penguins.join('、')}</p>`
         ).join('');
     }
