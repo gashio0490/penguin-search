@@ -17,27 +17,33 @@ async function searchAquariums() {
         return;
     }
 
-    // 選択されたペンギンと地域を取得
+    // 選択されたペンギン・地域・コンテンツを取得
     const selectedPenguins = Array.from(document.querySelectorAll('.penguin:checked')).map(cb => parseInt(cb.value));
     const selectedRegions = Array.from(document.querySelectorAll('.region:checked')).map(cb => parseInt(cb.value));
+    const selectedContents = Array.from(document.querySelectorAll('.content:checked')).map(cb => parseInt(cb.value));
 
     console.log("選択されたペンギン:", selectedPenguins);
     console.log("選択された地域:", selectedRegions);
+    console.log("選択されたコンテンツ:", selectedContents);
 
-    //データの取得
+    // データの取得
     const { data: viewData, error } = await supabase
         .from('aquarium_view')
-        .select('*');
+        .select('*')
+        .order('region_id', { ascending: true })
+        .order('penguin_id', { ascending: true })
+        .order('contents_id', { ascending: true });
 
     if (error) {
         console.error("DB取得エラー:", error);
         return;
     }
 
-    // フィルタリング処理
+    // フィルタリング処理（ペンギン、地域、コンテンツ）
     const filtered = viewData.filter(row =>
         (selectedPenguins.length === 0 || selectedPenguins.includes(row.penguin_id)) &&
-        (selectedRegions.length === 0 || selectedRegions.includes(row.region_id))
+        (selectedRegions.length === 0 || selectedRegions.includes(row.region_id)) &&
+        (selectedContents.length === 0 || selectedContents.includes(row.contents_id))
     );
 
     const groupedResults = filtered.reduce((acc, row) => {
@@ -45,12 +51,14 @@ async function searchAquariums() {
             acc[row.aquarium_id] = {
                 aquarium: row.aquarium_name,
                 pref: row.pref,
-                penguins: []
+                penguins: new Set(),
+                contents: new Set()
             };
         }
 
-        if (!acc[row.aquarium_id].penguins.includes(row.penguin_name)) {
-            acc[row.aquarium_id].penguins.push(row.penguin_name);
+        acc[row.aquarium_id].penguins.add(row.penguin_name);
+        if (row.contents) {
+            acc[row.aquarium_id].contents.add(row.contents);
         }
 
         return acc;
@@ -62,8 +70,9 @@ async function searchAquariums() {
         resultDiv.innerHTML = '<p>該当する水族館はありません。</p>';
     } else {
         resultDiv.innerHTML = Object.values(groupedResults).map(r =>
-            `<p><strong>${r.aquarium}</strong>（${r.pref})<br>
-            　${r.penguins.join('、')}</p>`
+            `<p><strong>${r.aquarium}</strong>（${r.pref}）<br>
+            　ペンギン: ${[...r.penguins].join('、')}<br>
+            　コンテンツ: ${[...r.contents].join('、') || 'なし'}</p>`
         ).join('');
     }
 }
