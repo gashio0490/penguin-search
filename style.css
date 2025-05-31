@@ -99,16 +99,52 @@ button:hover {
     }
 }
 
- /* その他のトグル */
-#other-toggle:checked ~ .other-options {
+/* その他のトグル */
+#other-toggle:checked~.other-options {
     display: block;
-  }
-  .other-options {
+}
+
+.other-options {
     display: none;
     margin-left: 1em;
-  }
+}
 
-  /*チェックボックスのスペース*/
- .checkbox-group input[type="checkbox"] {
-    margin-right: 4px;  
-} 
+/*チェックボックスのスペース*/
+.checkbox-group input[type="checkbox"] {
+    margin-right: 4px;
+}
+
+/* 検索結果カード */
+.result-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 12px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-card p {
+    margin: 4px 0;
+}
+
+.result-card p:first-child {
+    margin-bottom: 8px;
+}
+
+.result-card:hover {
+    background: #e0f7fa;
+}
+
+.result-card:active {
+  background: #e0f7fa; /* タップ時の色 */
+  transform: scale(0.98);
+}
+
+.arrow {
+    font-size: 1.5em;
+    color: #999;
+}

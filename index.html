@@ -2,76 +2,78 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ペンギン水族館検索</title>
-    <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ペンギンどこ？</title>
+        <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>ペンギン水族館検索（試験版）</h1>
-    <div class="container">
-        <h3>地域を選択</h3>
-        <div class="checkbox-group">
-            <label><input type="checkbox" class="region" value="1">北海道</label> <label><input type="checkbox"
-                    class="region" value="2">東北</label>
-            <label><input type="checkbox" class="region" value="3">北関東</label> <label><input type="checkbox"
-                    class="region" value="4">首都圏</label><br>
-            <label><input type="checkbox" class="region" value="5">甲信越</label> <label><input type="checkbox"
-                    class="region" value="6">北陸</label>
-            <label><input type="checkbox" class="region" value="7">東海</label> <label><input type="checkbox"
-                    class="region" value="8">近畿</label><br>
-            <label><input type="checkbox" class="region" value="9">中国</label> <label><input type="checkbox"
-                    class="region" value="10">四国</label>
-            <label><input type="checkbox" class="region" value="11">九州</label> <label><input type="checkbox"
-                    class="region" value="12">沖縄</label>
+        <h1>ペンギンどこ？</h1>
+        <div class="container">
+                <h3>地域を選択</h3>
+                <div class="checkbox-group">
+                        <label><input type="checkbox" class="region" value="1">北海道</label> <label><input type="checkbox"
+                                        class="region" value="2">東北</label>
+                        <label><input type="checkbox" class="region" value="3">北関東</label> <label><input type="checkbox"
+                                        class="region" value="4">首都圏</label><br>
+                        <label><input type="checkbox" class="region" value="5">甲信越</label> <label><input type="checkbox"
+                                        class="region" value="6">北陸</label>
+                        <label><input type="checkbox" class="region" value="7">東海</label> <label><input type="checkbox"
+                                        class="region" value="8">近畿</label><br>
+                        <label><input type="checkbox" class="region" value="9">中国</label> <label><input type="checkbox"
+                                        class="region" value="10">四国</label>
+                        <label><input type="checkbox" class="region" value="11">九州</label> <label><input type="checkbox"
+                                        class="region" value="12">沖縄</label>
+                </div>
+
+                <h3>ペンギンの種類を選択</h3>
+                <div class="checkbox-group">
+                        <label><input type="checkbox" class="penguin" value="1">コウテイ</label> <label><input
+                                        type="checkbox" class="penguin" value="2">オウサマ</label><br>
+                        <label><input type="checkbox" class="penguin" value="3">ジェンツー</label><label><input
+                                        type="checkbox" class="penguin" value="4">アデリー</label>
+                        <label><input type="checkbox" class="penguin" value="5">ヒゲ</label><br><label> <input
+                                        type="checkbox" class="penguin" value="6">マゼラン</label>
+                        <label><input type="checkbox" class="penguin" value="7">フンボルト</label> <label><input
+                                        type="checkbox" class="penguin" value="8">ケープ</label><br>
+                        <label><input type="checkbox" class="penguin" value="9">イワトビ</label> <label><input
+                                        type="checkbox" class="penguin" value="10">マカロニ</label>
+                        <label><input type="checkbox" class="penguin" value="11">コガタ</label><br>
+                </div>
+
+                <h3>コンテンツを選択</h3>
+                <div class="checkbox-group"></div>
+                <label><input type="checkbox" class="content" value="1"> お食事タイム</label>
+                <label><input type="checkbox" class="content" value="2"> えさやり体験</label>
+                <label><input type="checkbox" class="content" value="3"> 解説</label>
+                <label><input type="checkbox" class="content" value="4"> ペンギンショー</label>
+                <label><input type="checkbox" class="content" value="5"> ペンギン散歩</label><br>
+                <label><input type="checkbox" class="content" value="6"> ペンギンビーチ</label>
+                <label><input type="checkbox" class="content" value="7"> ふれあい</label>
+                <label><input type="checkbox" class="content" value="8"> 記念撮影</label>
+                <label><input type="checkbox" class="content" value="9"> バックヤードツアー</label><br>
+
+                <input type="checkbox" id="other-toggle" hidden>
+                <label for="other-toggle" style="cursor: pointer;">▶ その他</label>
+                <div class="other-options">
+                        <label><input type="checkbox" class="content other" value="10"> 体重測定</label><br>
+                        <label><input type="checkbox" class="content other" value="11"> 飼育体験</label><br>
+                        <label><input type="checkbox" class="content other" value="12"> 調査体験</label><br>
+                        <label><input type="checkbox" class="content other" value="13"> ペンギンエッグアート</label>
+                </div>
+
+                <button id="searchButton">検索</button>
+
+                <div class="result" id="result"></div>
         </div>
 
-        <h3>ペンギンの種類を選択</h3>
-        <div class="checkbox-group">
-            <label><input type="checkbox" class="penguin" value="1">コウテイ</label> <label><input type="checkbox"
-                    class="penguin" value="2">オウサマ</label>
-            <label><input type="checkbox" class="penguin" value="3">ジェンツー</label> <label><input type="checkbox"
-                    class="penguin" value="4">アデリー</label><br>
-            <label><input type="checkbox" class="penguin" value="5">ヒゲ</label><label> <input type="checkbox"
-                    class="penguin" value="6">マゼラン</label>
-            <label><input type="checkbox" class="penguin" value="7">フンボルト</label> <label><input type="checkbox"
-                    class="penguin" value="8">ケープ</label><br>
-            <label><input type="checkbox" class="penguin" value="9">イワトビ</label> <label><input type="checkbox"
-                    class="penguin" value="10">マカロニ</label>
-            <label><input type="checkbox" class="penguin" value="11">コガタ</label><br>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="script.js" defer></script>
         </div>
 
-        <h3>コンテンツを選択</h3>
-        <div class="checkbox-group"></div>
-        <label><input type="checkbox" class="content" value="1"> お食事タイム</label>
-        <label><input type="checkbox" class="content" value="2"> えさやり体験</label>
-        <label><input type="checkbox" class="content" value="3"> 解説</label>
-        <label><input type="checkbox" class="content" value="4"> ペンギンショー</label>
-        <label><input type="checkbox" class="content" value="5"> ペンギン散歩</label><br>
-        <label><input type="checkbox" class="content" value="6"> ペンギンビーチ</label>
-        <label><input type="checkbox" class="content" value="7"> ふれあい</label>
-        <label><input type="checkbox" class="content" value="8"> 記念撮影</label>
-        <label><input type="checkbox" class="content" value="9"> バックヤードツアー</label><br>
-
-        <input type="checkbox" id="other-toggle" hidden>
-        <label for="other-toggle" style="cursor: pointer;">▶ その他</label>
-        <div class="other-options">
-            <label><input type="checkbox" class="content other" value="10"> 体重測定</label><br>
-            <label><input type="checkbox" class="content other" value="11"> 飼育体験</label><br>
-            <label><input type="checkbox" class="content other" value="12"> 調査体験</label><br>
-            <label><input type="checkbox" class="content other" value="13"> ペンギンエッグアート</label>
-        </div>
-    </div>
 
 
-    <button id="searchButton">検索</button>
-
-    <div class="result" id="result"></div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="script.js" defer></script>
 </body>
 
 </html>
