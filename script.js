@@ -71,7 +71,7 @@ async function searchAquariums() {
         resultDiv.innerHTML = '<p>該当する水族館・動物園はありません。</p>';
     } else {
         resultDiv.innerHTML = Object.values(groupedResults).map(r =>
-            `<div class="result-card" onclick="location.href='${r.url}'">
+            `<div class="result-card" onclick="window.open('${r.url}', '_blank')">
             <p><strong>${r.aquarium}</strong>（${r.pref}）<br>
             　<strong>ペンギン</strong>: ${[...r.penguins].join('、')}<br>
             　<strong>コンテンツ</strong>: ${[...r.contents].join('、') || 'なし'}</p>
