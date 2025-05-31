@@ -139,6 +139,11 @@ button:hover {
     background: #e0f7fa;
 }
 
+.result-card:active {
+  background: #e0f7fa; /* タップ時の色 */
+  transform: scale(0.98);
+}
+
 .arrow {
     font-size: 1.5em;
     color: #999;
