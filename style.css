@@ -4,6 +4,25 @@
     box-sizing: border-box;
 }
 
+/* レスポンシブデザイン */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    button {
+        font-size: 1.1em;
+    }
+
+    .checkbox-group {
+        font-size: 0.9em;
+    }
+}
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f9;
@@ -50,7 +69,7 @@ h3 {
 }
 
 .checkbox-group input {
-    margin-right: 10px;
+    margin-right: 4px;
     margin-bottom: 10px;
     cursor: pointer;
 }
@@ -59,8 +78,21 @@ h3 {
     cursor: pointer;
 }
 
-button {
+/* その他のトグル */
+#other-toggle:checked~.other-options {
     display: block;
+}
+
+.other-options {
+    display: none;
+    margin-left: 1em;
+}
+
+button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     padding: 12px;
     background-color: #0077b6;
@@ -77,18 +109,11 @@ button:hover {
     background-color: #005f8a;
 }
 
-.result {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-}
-
-.result p {
-    font-size: 1.1em;
-    color: #555;
-    margin: 5px 0;
+.loading-gif {
+    display: none;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
 }
 
 .annotation {
@@ -105,38 +130,18 @@ button:hover {
   color: #b58900;
 }
 
-/* レスポンシブデザイン */
-@media (max-width: 600px) {
-    .container {
-        width: 95%;
-    }
-
-    h1 {
-        font-size: 1.5em;
-    }
-
-    button {
-        font-size: 1.1em;
-    }
-
-    .checkbox-group {
-        font-size: 0.9em;
-    }
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
 }
 
-/* その他のトグル */
-#other-toggle:checked~.other-options {
-    display: block;
-}
-
-.other-options {
-    display: none;
-    margin-left: 1em;
-}
-
-/*チェックボックスのスペース*/
-.checkbox-group input[type="checkbox"] {
-    margin-right: 4px;
+.result p {
+    font-size: 1.1em;
+    color: #555;
+    margin: 5px 0;
 }
 
 /* 検索結果カード */
@@ -150,6 +155,12 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.result-card img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
 }
 
 .result-card p {
@@ -167,6 +178,17 @@ button:hover {
 .result-card:active {
   background: #e0f7fa; /* タップ時の色 */
   transform: scale(0.98);
+}
+
+.tag {
+    display: inline-block;
+    background-color: #dbeeff;
+    color: #0077b6;
+    border-radius: 12px;
+    padding: 2px 8px;
+    margin: 2px 4px 2px 0;
+    font-size: 0.85em;
+    white-space: nowrap;
 }
 
 .arrow {
