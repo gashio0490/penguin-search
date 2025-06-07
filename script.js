@@ -12,10 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function searchAquariums() {
     const supabase = window.supabase;
+    const loading = document.getElementById('loading');
+    const btnText = document.querySelector('#searchButton .btn-text');
+
     if (!supabase) {
         console.error("Supabaseが正しく初期化されていません。");
         return;
     }
+
+    // ローディング表示
+    btnText.style.display = 'none';
+    loading.style.display = 'inline';
 
     // 選択されたペンギン・地域・コンテンツを取得
     const selectedPenguins = Array.from(document.querySelectorAll('.penguin:checked')).map(cb => parseInt(cb.value));
@@ -27,56 +34,62 @@ async function searchAquariums() {
     console.log("選択されたコンテンツ:", selectedContents);
 
     // データの取得
-    const { data: viewData, error } = await supabase
-        .from('aquarium_view')
-        .select('*')
-        .order('region_id', { ascending: true })
-        .order('penguin_id', { ascending: true })
-        .order('contents_id', { ascending: true });
+    try {
+        const { data: viewData, error } = await supabase
+            .from('aquarium_view')
+            .select('*')
+            .order('region_id', { ascending: true })
+            .order('penguin_id', { ascending: true })
+            .order('contents_id', { ascending: true });
 
-    if (error) {
-        console.error("DB取得エラー:", error);
-        return;
-    }
-
-    // フィルタリング処理（ペンギン、地域、コンテンツ）
-    const filtered = viewData.filter(row =>
-        (selectedPenguins.length === 0 || selectedPenguins.includes(row.penguin_id)) &&
-        (selectedRegions.length === 0 || selectedRegions.includes(row.region_id)) &&
-        (selectedContents.length === 0 || selectedContents.includes(row.contents_id))
-    );
-
-    const groupedResults = filtered.reduce((acc, row) => {
-        if (!acc[row.aquarium_id]) {
-            acc[row.aquarium_id] = {
-                aquarium: row.aquarium_name,
-                pref: row.pref,
-                url:row.url,
-                penguins: new Set(),
-                contents: new Set()
-            };
+        if (error) {
+            console.error("DB取得エラー:", error);
+            return;
         }
 
-        acc[row.aquarium_id].penguins.add(row.penguin_name);
-        if (row.contents) {
-            acc[row.aquarium_id].contents.add(row.contents);
-        }
+        // フィルタリング処理（ペンギン、地域、コンテンツ）
+        const filtered = viewData.filter(row =>
+            (selectedPenguins.length === 0 || selectedPenguins.includes(row.penguin_id)) &&
+            (selectedRegions.length === 0 || selectedRegions.includes(row.region_id)) &&
+            (selectedContents.length === 0 || selectedContents.includes(row.contents_id))
+        );
 
-        return acc;
-    }, {});
+        const groupedResults = filtered.reduce((acc, row) => {
+            if (!acc[row.aquarium_id]) {
+                acc[row.aquarium_id] = {
+                    aquarium: row.aquarium_name,
+                    pref: row.pref,
+                    url: row.url,
+                    penguins: new Set(),
+                    contents: new Set()
+                };
+            }
 
-    // 結果の表示
-    const resultDiv = document.getElementById('result');
-    if (Object.keys(groupedResults).length === 0) {
-        resultDiv.innerHTML = '<p>該当する水族館・動物園はありません。</p>';
-    } else {
-        resultDiv.innerHTML = Object.values(groupedResults).map(r =>
-            `<div class="result-card" onclick="window.open('${r.url}', '_blank')">
+            acc[row.aquarium_id].penguins.add(row.penguin_name);
+            if (row.contents) {
+                acc[row.aquarium_id].contents.add(row.contents);
+            }
+
+            return acc;
+        }, {});
+
+        // 結果の表示
+        const resultDiv = document.getElementById('result');
+        if (Object.keys(groupedResults).length === 0) {
+            resultDiv.innerHTML = '<p>該当する水族館・動物園はありません。</p>';
+        } else {
+            resultDiv.innerHTML = Object.values(groupedResults).map(r =>
+                `<div class="result-card" onclick="window.open('${r.url}', '_blank')">
             <p><strong>${r.aquarium}</strong>（${r.pref}）<br>
-            　<strong>ペンギン</strong>: ${[...r.penguins].join('、')}<br>
-            　<strong>コンテンツ</strong>: ${[...r.contents].join('、') || 'なし'}</p>
-            　<span class="arrow">›</span>
+            <img src="images/empchick.png" alt="ペンギンアイコン">  ${[...r.penguins].map(p => `<span class="tag">${p}</span>`).join(' ')}<br>
+            <img src="images/fish.png" alt="コンテンツアイコン"> ${[...(r.contents || [])].length ? [...r.contents].map(p => `<span class="tag">${p}</span>`).join(' ') : 'なし'}</p>
+            <span class="arrow">›</span>
             </div>`
-        ).join('');
+            ).join('');
+        }
+    } finally {
+        // ローディング非表示・テキスト再表示
+        loading.style.display = 'none';
+        btnText.style.display = 'inline';
     }
 }
