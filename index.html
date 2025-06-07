@@ -5,13 +5,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ペンギンどこ？</title>
+        <link rel="icon" href="images/empchick.png" type="image/png">
         <link rel="stylesheet" href="style.css">
 </head>
 
 <body ontouchstart="">
         <h1>ペンギンどこ？</h1>
         <div class="container">
-                <h3>地域を選択</h3>
+                <h3 class="icon-with-heading"><img src="images/pin.png" alt="地域アイコン">地域を選択</h3>
                 <div class="checkbox-group">
                         <label><input type="checkbox" class="region" value="1">北海道</label> <label><input type="checkbox"
                                         class="region" value="2">東北</label>
@@ -27,7 +28,7 @@
                                         class="region" value="12">沖縄</label>
                 </div>
 
-                <h3>ペンギンの種類を選択</h3>
+                <h3 class="icon-with-heading"><img src="images/empchick.png" alt="ペンギンアイコン">ペンギンの種類を選択</h3>
                 <div class="checkbox-group">
                         <label><input type="checkbox" class="penguin" value="1">コウテイ</label> <label><input
                                         type="checkbox" class="penguin" value="2">オウサマ</label><br>
@@ -42,28 +43,33 @@
                         <label><input type="checkbox" class="penguin" value="11">コガタ</label><br>
                 </div>
 
-                <h3>コンテンツを選択</h3>
-                <div class="checkbox-group"></div>
-                <label><input type="checkbox" class="content" value="1"> お食事タイム</label>
-                <label><input type="checkbox" class="content" value="2"> えさやり体験</label>
-                <label><input type="checkbox" class="content" value="3"> 解説</label>
-                <label><input type="checkbox" class="content" value="4"> ペンギンショー</label>
-                <label><input type="checkbox" class="content" value="5"> ペンギン散歩</label><br>
-                <label><input type="checkbox" class="content" value="6"> ペンギンビーチ</label>
-                <label><input type="checkbox" class="content" value="7"> ふれあい</label>
-                <label><input type="checkbox" class="content" value="8"> 記念撮影</label>
-                <label><input type="checkbox" class="content" value="9"> バックヤードツアー</label><br>
+                <h3 class="icon-with-heading"><img src="images/fish.png" alt="コンテンツアイコン">コンテンツを選択</h3>
+                <div class="checkbox-group">
+                        <label><input type="checkbox" class="content" value="1"> お食事タイム</label>
+                        <label><input type="checkbox" class="content" value="2"> えさやり体験</label>
+                        <label><input type="checkbox" class="content" value="3"> 解説</label>
+                        <label><input type="checkbox" class="content" value="4"> ペンギンショー</label>
+                        <label><input type="checkbox" class="content" value="5"> ペンギン散歩</label><br>
+                        <label><input type="checkbox" class="content" value="6"> ペンギンビーチ</label>
+                        <label><input type="checkbox" class="content" value="7"> ふれあい</label>
+                        <label><input type="checkbox" class="content" value="8"> 記念撮影</label>
+                        <label><input type="checkbox" class="content" value="9"> バックヤードツアー</label><br>
 
-                <input type="checkbox" id="other-toggle" hidden>
-                <label for="other-toggle" style="cursor: pointer;">▶ その他</label>
-                <div class="other-options">
-                        <label><input type="checkbox" class="content other" value="10"> 体重測定</label><br>
-                        <label><input type="checkbox" class="content other" value="11"> 飼育体験</label><br>
-                        <label><input type="checkbox" class="content other" value="12"> 調査体験</label><br>
-                        <label><input type="checkbox" class="content other" value="13"> ペンギンエッグアート</label>
+                        <input type="checkbox" id="other-toggle" hidden>
+                        <label for="other-toggle" style="cursor: pointer;">▶ その他</label>
+                        <div class="other-options">
+                                <label><input type="checkbox" class="content other" value="10"> 体重測定</label><br>
+                                <label><input type="checkbox" class="content other" value="11"> 飼育体験</label><br>
+                                <label><input type="checkbox" class="content other" value="12"> 調査体験</label><br>
+                                <label><input type="checkbox" class="content other" value="13"> ペンギンエッグアート</label>
+                        </div>
                 </div>
 
                 <button id="searchButton">検索</button>
+                
+                <div class="annotation">
+                        <p>最新の展示・コンテンツ情報は、必ず公式HPをご確認ください。</p>
+                </div>
 
                 <div class="result" id="result"></div>
         </div>
