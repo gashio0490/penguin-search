@@ -78,6 +78,10 @@ h3 {
     cursor: pointer;
 }
 
+label {
+  white-space: nowrap;
+}
+
 /* その他のトグル */
 #other-toggle:checked~.other-options {
     display: block;
