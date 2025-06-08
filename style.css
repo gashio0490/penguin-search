@@ -34,7 +34,18 @@ body {
 h1 {
     text-align: center;
     color: #0077b6;
-    margin-top: 20px;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 10px 0;
+}
+
+h2 {
+    text-align: center;
+    color: #0077b6;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 10px 0;
 }
 
 h3 {
@@ -61,11 +72,11 @@ h3 {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .checkbox-group {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .checkbox-group input {
@@ -85,6 +96,17 @@ label {
 /* その他のトグル */
 #other-toggle:checked~.other-options {
     display: block;
+}
+
+.toggle-icon::before {
+    content: "▶";   
+    display: inline-block;
+    margin-right: 0.3em;
+}
+
+#other-toggle:checked ~ .toggle-label .toggle-icon::before {
+    content: "▼";
+    transform: scale(1.2); 
 }
 
 .other-options {
