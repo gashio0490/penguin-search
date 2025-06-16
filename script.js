@@ -75,17 +75,31 @@ async function searchAquariums() {
 
         // 結果の表示
         const resultDiv = document.getElementById('result');
+
         if (Object.keys(groupedResults).length === 0) {
             resultDiv.innerHTML = '<p>該当する水族館・動物園はありません。</p>';
         } else {
             resultDiv.innerHTML = Object.values(groupedResults).map(r =>
                 `<div class="result-card" onclick="window.open('${r.url}', '_blank')">
-            <p><strong>${r.aquarium}</strong>（${r.pref}）<br>
-            <img src="images/empchick.png" alt="ペンギンアイコン">  ${[...r.penguins].map(p => `<span class="tag">${p}</span>`).join(' ')}<br>
-            <img src="images/fish.png" alt="コンテンツアイコン"> ${[...(r.contents || [])].length ? [...r.contents].map(p => `<span class="tag">${p}</span>`).join(' ') : 'なし'}</p>
-            <span class="arrow">›</span>
-            </div>`
-            ).join('');
+                  <div class="text-content">
+                      <p><strong>${r.aquarium}</strong>（${r.pref}）</p>
+                          <div class="icon-tag-row">
+                                <img class="icon" src="images/empchick.png" alt="ペンギンアイコン">
+                                      <div class="tag-wrap">
+                                              ${[...r.penguins].map(p => `<span class="tag">${p}</span>`).join(' ')}
+                                      </div>
+                            </div>
+                          <div class="icon-tag-row">
+                                <img class="icon" src="images/fish.png" alt="コンテンツアイコン">
+                                      <div class="tag-wrap">
+                                              ${[...(r.contents || [])].length ? [...r.contents].map(p => `<span class="tag">${p}</span>`).join(' ') : 'なし'}
+                                      </div>
+                            </div>
+                  </div>
+                  <span class="arrow">›</span>
+                </div>`
+           
+             ).join('');
         }
     } finally {
         // ローディング非表示・テキスト再表示

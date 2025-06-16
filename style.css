@@ -166,7 +166,7 @@ button:hover {
 
 .result p {
     font-size: 1.1em;
-    color: #555;
+    color: #333;
     margin: 5px 0;
 }
 
@@ -174,13 +174,14 @@ button:hover {
 .result-card {
     border: 1px solid #ccc;
     border-radius: 10px;
-    padding: 16px;
+    padding: 8px 16px 16px 16px;
     margin: 12px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: row;
 }
 
 .result-card img {
@@ -206,13 +207,36 @@ button:hover {
   transform: scale(0.98);
 }
 
+.text-content {
+  flex: 1;
+}
+
+.icon-tag-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+  margin-top: 8px;
+}
+
+.icon-tag-row .icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+}
+
+.tag-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 4px; 
+}
+
 .tag {
     display: inline-block;
     background-color: #dbeeff;
     color: #0077b6;
     border-radius: 12px;
     padding: 2px 8px;
-    margin: 2px 4px 2px 0;
     font-size: 0.85em;
     white-space: nowrap;
 }
@@ -220,4 +244,5 @@ button:hover {
 .arrow {
     font-size: 1.5em;
     color: #999;
+    align-self: center;
 }
