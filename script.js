@@ -17,6 +17,11 @@ async function searchAquariums() {
 
     if (!supabase) {
         console.error("Supabaseが正しく初期化されていません。");
+        
+        // 結果表示エリアにエラーメッセージを表示
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '<p style="color: red;">検索に失敗しました。ページを再読み込みしてください。</p>';
+
         return;
     }
 
@@ -44,6 +49,15 @@ async function searchAquariums() {
 
         if (error) {
             console.error("DB取得エラー:", error);
+
+            // 結果表示エリアにエラーメッセージを表示
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p style="color: red;">データの取得に失敗しました。しばらくしてから再度お試しください。</p>';
+
+            // ローディング非表示・ボタン文字戻す
+            loading.style.display = 'none';
+            btnText.style.display = 'inline';
+            
             return;
         }
 
